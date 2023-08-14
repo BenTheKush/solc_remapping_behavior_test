@@ -1,49 +1,39 @@
+#!/usr/bin/env bash
 
-function run_solc {
-  echo
-  echo "----------------------------------------------------"
-  echo "--- Running: \`solc $@\`"
-  echo "----------------------------------------------------"
-  echo
-  if solc "$@" ; then
-    printf "\n\033[32mSUCCESS\n\033[0m"
-    return 0
-  else
-    printf "\033[31mFAILED\n\033[0m"
-    return 1
-  fi
-}
+# shellcheck source=/dev/null
+source "../util.sh"
 
-function run_solang {
-  echo
-  printf " ----------------------------------------------------\n"
-  printf " --- Running: \`\033[33;1msolang compile --target solana %s\033[0m\`\n" "$(echo "$@")"
-  printf " ----------------------------------------------------\n"
-  echo
-  if solang compile --target solana "$@" ; then
-    printf "\n\033[32mSUCCESS\n\033[0m"
-    return 0
-  else
-    printf "\033[31mFAILED\n\033[0m"
-    return 1
-  fi
-}
-
+print_test_banner 1 "No remapping"
 run_solc contracts/Contract.sol
+solc=$?
 run_solang contracts/Contract.sol
+solang=$?
+compare_runs 1 $solc $solang
 
-
+print_test_banner 2 "No base-path/import-path"
 run_solc contracts/Contract.sol lib=node_modules/lib
+solc=$?
 run_solang contracts/Contract.sol -m lib=node_modules/lib
+solang=$?
+compare_runs 1 $solc $solang
 
-
+print_test_banner 3 "Incomplete include-path/import-paths"
 run_solc contracts/Contract.sol lib=node_modules/lib --base-path=.
+solc=$?
 run_solang contracts/Contract.sol -m "lib=node_modules/lib" -I .
+solang=$?
+compare_runs 1 $solc $solang
 
-
+print_test_banner 4 "Incorrect include-path/import-paths"
 run_solc contracts/Contract.sol lib=node_modules/lib --base-path=. --include-path=resources/node_modules
+solc=$?
 run_solang contracts/Contract.sol -m "lib=node_modules/lib" -I . -I resources/node_modules
+solang=$?
+compare_runs 1 $solc $solang
 
-
+print_test_banner 5 "Correct configuration"
 run_solc contracts/Contract.sol lib=node_modules/lib --base-path=. --include-path=resources
+solc=$?
 run_solang contracts/Contract.sol -m "lib=node_modules/lib" -I . -I resources
+solang=$?
+compare_runs 0 $solc $solang
