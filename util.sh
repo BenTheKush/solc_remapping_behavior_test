@@ -12,13 +12,15 @@ function run_solc {
             return 1
         fi
     else
+        echo
         if solc "$@"; then
-            printf "\033[32mSUCCESS\n\033[0m"
+            printf "\033[32;1m    SUCCESS\n\033[0m\n"
             return 0
         else
-            printf "\033[31mFAILED\n\033[0m"
+            printf "\033[31;1m    FAILED\n\033[0m\n"
             return 1
         fi
+        echo
     fi
 }
 
@@ -35,11 +37,12 @@ function run_solang {
             return 1
         fi
     else
+        echo
         if solang compile --target solana "$@"; then
-            printf "\033[32mSUCCESS\n\033[0m"
+            printf "\033[32;1m    SUCCESS\n\033[0m\n"
             return 0
         else
-            printf "\033[31mFAILED\n\033[0m"
+            printf "\033[31;1m    FAILED\n\033[0m\n"
             return 1
         fi
     fi
