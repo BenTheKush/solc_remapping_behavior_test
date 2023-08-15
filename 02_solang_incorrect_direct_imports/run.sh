@@ -4,15 +4,15 @@
 source "../util.sh"
 
 print_test_banner 1 "Correct Configs (should pass)"
-run_solc contracts/Contract.sol lib=resources/node_modules/lib
+run_solc contracts/Contract.sol
 solc_run=$?
-run_solang contracts/Contract.sol -m "lib=resources/node_modules/lib"
+run_solang contracts/Contract.sol
 solang_run=$?
 compare_runs 0 $solc_run $solang_run
 
 print_test_banner 2 "Correct Configs (should pass)"
-run_solc contracts/Contract.sol lib=resources/node_modules/lib --base-path .
+run_solc contracts/Contract.sol --base-path .
 solc_run=$?
-run_solang contracts/Contract.sol -m "lib=resources/node_modules/lib" -I .
+run_solang contracts/Contract.sol -I .
 solang_run=$?
 compare_runs 0 $solc_run $solang_run

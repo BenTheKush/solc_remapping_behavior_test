@@ -25,11 +25,16 @@ function run_solc {
 }
 
 function run_solang {
-    printf -- "    \033[1mRunning: \`\033[33;1msolang compile --target solana %s\033[0m\`..." "$*"
+
+    if [ -z ${SOLANG+x} ]; then
+        SOLANG=solang
+    fi
+
+    printf -- "    \033[1mRunning: \`\033[33;1m%s compile --target solana %s\033[0m\`..." "$SOLANG" "$*"
 
     if [ -z ${PRINT_COMPILER_OUTPUT+x} ]; then
         # Var is unset, so be quiet
-        if solang compile --target solana "$@" >/dev/null 2>&1; then
+        if "$SOLANG" compile --target solana "$@" >/dev/null 2>&1; then
             printf "\033[32mSUCCESS\n\033[0m"
             return 0
         else
@@ -38,7 +43,7 @@ function run_solang {
         fi
     else
         echo
-        if solang compile --target solana "$@"; then
+        if "$SOLANG" compile --target solana "$@"; then
             printf "\033[32;1m    SUCCESS\n\033[0m\n"
             return 0
         else
