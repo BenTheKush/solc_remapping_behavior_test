@@ -43,7 +43,7 @@ function run_solang {
         fi
     else
         echo
-        if "$SOLANG" compile --target solana "$@"; then
+        if "$SOLANG" compile --target solana -o .solang_out "$@"; then
             printf "\033[32;1m    SUCCESS\n\033[0m\n"
             return 0
         else
