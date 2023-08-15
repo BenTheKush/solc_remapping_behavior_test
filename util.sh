@@ -57,20 +57,28 @@ function compare_runs {
     expected=$1
     solc_run=$2
     solang_run=$3
+    name_1="$4"
+    if [ -z ${4+x} ]; then
+        name_1="solc"
+    fi
+    name_2="$5"
+    if [ -z ${4+x} ]; then
+        name_2="solang"
+    fi
 
-    if [ $solc_run -eq $expected ] && [ $solc_run -eq $solang_run ]; then
+    if [ "$solc_run" -eq "$expected" ] && [ "$solc_run" -eq "$solang_run" ]; then
 
         printf "\033[1;32m" # GREEN BOLD
         printf "    SUCCESS:"
         printf "\033[0m" # UNRED
-        printf " solc and solang exit codes are expected value\n"
+        printf " %s and %s exit codes are expected value\n" "$name_1" "$name_2"
     else
         printf "\033[1;31m" # RED BOLD
         echo "    FAILURE:"
         printf "\033[0m" # UNRED
         echo "        expected: $expected"
-        echo "        solc:     $solc_run"
-        echo "        solang:   $solang_run"
+        echo "        $name_1: $solc_run"
+        echo "        $name_2: $solang_run"
     fi
 }
 

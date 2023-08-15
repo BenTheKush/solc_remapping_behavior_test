@@ -30,6 +30,6 @@ cd 04_multiple_map_path_segments || exit 1
 cd .. || exit
 
 print_test_set_banner 5
-cd 05_vfs_path_resolved_in_host_fs || exit 1
+cd 05_import_path_order_should_not_matter || exit 1
 ./run.sh
 cd .. || exit
