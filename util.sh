@@ -34,7 +34,7 @@ function run_solang {
 
     if [ -z ${PRINT_COMPILER_OUTPUT+x} ]; then
         # Var is unset, so be quiet
-        if "$SOLANG" compile --target solana "$@" >/dev/null 2>&1; then
+        if "$SOLANG" compile --target solana -o .solang_out "$@" >/dev/null 2>&1; then
             printf "\033[32mSUCCESS\n\033[0m"
             return 0
         else

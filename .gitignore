@@ -1,2 +1,3 @@
 *.json
 *.so
+**/.solang_out
