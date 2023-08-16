@@ -69,27 +69,27 @@ function compare_runs {
     if [ "$solc_run" -eq "$expected" ] && [ "$solc_run" -eq "$solang_run" ]; then
 
         printf "\033[1;32m" # GREEN BOLD
-        printf "    SUCCESS:"
+        printf "SUCCESS:"
         printf "\033[0m" # UNRED
         printf " %s and %s exit codes are expected value\n" "$name_1" "$name_2"
+        return 0
     else
         printf "\033[1;31m" # RED BOLD
-        echo "    FAILURE:"
+        echo "FAILURE:"
         printf "\033[0m" # UNRED
-        echo "        expected: $expected"
-        echo "        $name_1: $solc_run"
-        echo "        $name_2: $solang_run"
+        echo "    expected: $expected"
+        echo "    $name_1: $solc_run"
+        echo "    $name_2: $solang_run"
+        return 1
     fi
 }
 
 function print_test_banner {
     echo
-    echo "======================================================================="
     printf "\033[34;1m"
     printf "TEST %s:" "$1"
     printf "\033[0;1m"
     printf " %s\n" "$2"
     printf "\033[0m"
-    echo "======================================================================="
     echo
 }
