@@ -17,35 +17,44 @@ function color_exit_code {
     fi
 }
 
-print_test_set_banner 1
-cd 01_solang_remap_target || exit 1
-./run.sh
-failures_1=$?
-cd .. || exit 1
+function run_tests {
 
-print_test_set_banner 2
-cd 02_solang_incorrect_direct_imports || exit 1
-./run.sh
-failures_2=$?
-cd .. || exit
+    print_test_set_banner 1
+    cd 01_solang_remap_target || exit 1
+    ./run.sh
+    failures_1=$?
+    cd .. || exit 1
 
-print_test_set_banner 3
-cd 03_solang_permissive_on_ambiguous_imports || exit 1
-./run.sh
-failures_3=$?
-cd .. || exit
+    print_test_set_banner 2
+    cd 02_solang_incorrect_direct_imports || exit 1
+    ./run.sh
+    failures_2=$?
+    cd .. || exit
 
-print_test_set_banner 4
-cd 04_multiple_map_path_segments || exit 1
-./run.sh
-failures_4=$?
-cd .. || exit
+    print_test_set_banner 3
+    cd 03_solang_permissive_on_ambiguous_imports || exit 1
+    ./run.sh
+    failures_3=$?
+    cd .. || exit
 
-print_test_set_banner 5
-cd 05_import_path_order_should_not_matter || exit 1
-./run.sh
-failures_5=$?
-cd .. || exit
+    print_test_set_banner 4
+    cd 04_multiple_map_path_segments || exit 1
+    ./run.sh
+    failures_4=$?
+    cd .. || exit
+
+    print_test_set_banner 5
+    cd 05_import_path_order_should_not_matter || exit 1
+    ./run.sh
+    failures_5=$?
+    cd .. || exit
+}
+
+if [ -z ${QUIET+x} ]; then
+    run_tests
+else
+    run_tests >/dev/null
+fi
 
 total_failures=$((failures_1 + failures_2 + failures_3 + failures_4 + failures_5))
 
