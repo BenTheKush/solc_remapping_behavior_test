@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "contracts/A.sol";
+import "lib/nested/Lib.sol";
 
 contract Contract {
     using Lib for Lib.Item;
