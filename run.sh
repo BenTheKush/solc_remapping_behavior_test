@@ -9,6 +9,14 @@ function print_test_set_banner {
     echo
 }
 
+function color_exit_code {
+    if [ "$1" -eq "0" ]; then
+        printf "\033[32;1m%s\033[0m" "$1"
+    else
+        printf "\033[31;1m%s\033[0m" "$1"
+    fi
+}
+
 print_test_set_banner 1
 cd 01_solang_remap_target || exit 1
 ./run.sh
@@ -39,9 +47,13 @@ cd 05_import_path_order_should_not_matter || exit 1
 failures_5=$?
 cd .. || exit
 
-echo "Summary"
-echo "01: $failures_1"
-echo "02: $failures_2"
-echo "03: $failures_3"
-echo "04: $failures_4"
-echo "05: $failures_5"
+total_failures=$((failures_1 + failures_2 + failures_3 + failures_4 + failures_5))
+
+printf "\n                 \033[1mSummary\033[0m\n\n"
+printf "\033[1m01_solang_remap_target\033[0m:                    %s\n" "$(color_exit_code $failures_1)"
+printf "\033[1m02_solang_incorrect_direct_imports\033[0m:        %s\n" "$(color_exit_code $failures_2)"
+printf "\033[1m03_solang_permissive_on_ambiguous_imports\033[0m: %s\n" "$(color_exit_code $failures_3)"
+printf "\033[1m04_multiple_map_path_segments\033[0m:             %s\n" "$(color_exit_code $failures_4)"
+printf "\033[1m05_import_path_order_should_not_matter\033[0m:    %s\n" "$(color_exit_code $failures_5)"
+printf -- "---------------------------------------------\n"
+printf "\033[1mTotal Test Failures\033[0m:                       %s\n" "$(color_exit_code $total_failures)"

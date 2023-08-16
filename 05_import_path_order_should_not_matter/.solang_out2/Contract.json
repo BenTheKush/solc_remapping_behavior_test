@@ -1,0 +1,35 @@
+{
+  "version": "0.3.0",
+  "name": "Contract",
+  "instructions": [
+    {
+      "name": "new",
+      "accounts": [
+        {
+          "name": "dataAccount",
+          "isMut": true,
+          "isSigner": false,
+          "isOptional": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "use_a",
+      "accounts": [
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false,
+          "isOptional": false
+        }
+      ],
+      "args": [
+        {
+          "name": "a",
+          "type": "publicKey"
+        }
+      ]
+    }
+  ]
+}
