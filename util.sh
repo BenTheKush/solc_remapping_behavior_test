@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function run_solc {
-    printf -- "    \033[1mRunning: \`\033[33;1msolc %s\033[0m\`..." "$*"
+    printf -- "    \033[1mRunning: \`\033[0;33msolc %s\033[0m\`..." "$*"
     if [ -z ${PRINT_COMPILER_OUTPUT+x} ]; then
         # Var is unset, so be quiet
         if solc "$@" >/dev/null 2>&1; then
@@ -30,7 +30,7 @@ function run_solang {
         SOLANG=solang
     fi
 
-    printf -- "    \033[1mRunning: \`\033[33;1m%s compile --target solana %s\033[0m\`..." "$SOLANG" "$*"
+    printf -- "    \033[1mRunning: \`\033[0;33m%s compile --target solana %s\033[0m\`..." "$SOLANG" "$*"
 
     if [ -z ${PRINT_COMPILER_OUTPUT+x} ]; then
         # Var is unset, so be quiet
