@@ -32,7 +32,7 @@ function run_tests {
     cd .. || exit
 
     print_test_set_banner 3
-    cd 03_solang_permissive_on_ambiguous_imports || exit 1
+    cd 03_ambiguous_imports_should_fail || exit 1
     ./run.sh
     failures_3=$?
     cd .. || exit

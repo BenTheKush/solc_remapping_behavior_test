@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 function run_solc {
+    if [ -z ${SOLC+x} ]; then
+        SOLC=solc
+    fi
     printf -- "    \033[1mRunning: \`\033[0;33msolc %s\033[0m\`..." "$*"
     if [ -z ${PRINT_COMPILER_OUTPUT+x} ]; then
         # Var is unset, so be quiet

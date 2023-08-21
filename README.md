@@ -6,6 +6,30 @@ solang. Tests were run on:
 + solang v0.3.0
 + solc 8.13
 
+## Running
+To run, use the shell script from the root of this repository:
+
+```
+./run.sh
+```
+
+This will run the full test suite and give detailed output of what commands were
+run for Solc and Solang and how each performed, and a summary of errors
+encountered.  `run.sh` assumes that `solc` and `solang` are on your PATH.
+
+If you only want the errors, run with `QUIET=1`:
+
+```
+QUIET=1 ./run.sh
+```
+
+You can also specify a specific `solang` and `solc` executable:
+
+```
+SOLANG=/path/to/some/solang SOLC=/path/to/some/solc ./run.sh
+```
+
+
 ## Overview
 
 To run all tests, run the root directory `run.sh`. To run an individual test,
