@@ -48,6 +48,12 @@ function run_tests {
     ./run.sh
     failures_5=$?
     cd .. || exit
+
+    print_test_set_banner 6
+    cd 06_redundant_remaps || exit 1
+    ./run.sh
+    failures_6=$?
+    cd .. || exit
 }
 
 if [ -z ${QUIET+x} ]; then
@@ -56,7 +62,7 @@ else
     run_tests >/dev/null
 fi
 
-total_failures=$((failures_1 + failures_2 + failures_3 + failures_4 + failures_5))
+total_failures=$((failures_1 + failures_2 + failures_3 + failures_4 + failures_5 + failures_6))
 
 printf "\n                 \033[1mSummary\033[0m\n\n"
 printf "\033[1m01_solang_remap_target\033[0m:                    %s\n" "$(color_exit_code $failures_1)"
@@ -64,5 +70,6 @@ printf "\033[1m02_solang_incorrect_direct_imports\033[0m:        %s\n" "$(color_
 printf "\033[1m03_solang_permissive_on_ambiguous_imports\033[0m: %s\n" "$(color_exit_code $failures_3)"
 printf "\033[1m04_multiple_map_path_segments\033[0m:             %s\n" "$(color_exit_code $failures_4)"
 printf "\033[1m05_import_path_order_should_not_matter\033[0m:    %s\n" "$(color_exit_code $failures_5)"
+printf "\033[1m06_redundant_remaps\033[0m:                       %s\n" "$(color_exit_code $failures_6)"
 printf -- "---------------------------------------------\n"
 printf "\033[1mTotal Test Failures\033[0m:                       %s\n" "$(color_exit_code $total_failures)"
