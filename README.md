@@ -80,7 +80,7 @@ then solang will look for `Foo.sol` in `contracts`.
 I believe the most up-to-date version of solang has fixed this, but I'm
 including this just in case.
 
-### 03_solang_permissive_on_ambiguous_imports
+### 03_ambiguous_imports_should_fail
 
 This collection of tests captures a divergence between solc and solang on
 ambiguous imports. From [the solc docs](https://docs.soliditylang.org/en/v0.8.19/path-resolution.html):
