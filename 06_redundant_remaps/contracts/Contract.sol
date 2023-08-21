@@ -2,8 +2,8 @@
 
 pragma solidity ^0.8.0;
 
-import "lib/Lib.sol";
-
+// Like before, but we want to have multiple remappings fire
+import "node_modules/lib/Lib.sol";
 
 contract Contract {
     using Lib for Lib.Item;
